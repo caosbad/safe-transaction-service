@@ -183,17 +183,18 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS('Task %s was already created' % task.name))
 
         self.stdout.write(self.style.SUCCESS('Setting up Safe Contract Addresses'))
-        ethereum_client = EthereumClientProvider()
-        ethereum_network = ethereum_client.get_network()
-        if ethereum_network in MASTER_COPIES:
-            self.stdout.write(self.style.SUCCESS(f'Setting up {ethereum_network.name} safe addresses'))
-            self._setup_safe_master_copies(MASTER_COPIES[ethereum_network])
-        if ethereum_network in PROXY_FACTORIES:
-            self.stdout.write(self.style.SUCCESS(f'Setting up {ethereum_network.name} proxy factory addresses'))
-            self._setup_safe_proxy_factories(PROXY_FACTORIES[ethereum_network])
+        # ethereum_client = EthereumClientProvider()
+        # ethereum_network = ethereum_client.get_network()
+        # if ethereum_network in MASTER_COPIES:
+        #     self.stdout.write(self.style.SUCCESS(f'Setting up {ethereum_network.name} safe addresses'))
+        #     self._setup_safe_master_copies(MASTER_COPIES[ethereum_network])
+        # if ethereum_network in PROXY_FACTORIES:
+        #     self.stdout.write(self.style.SUCCESS(f'Setting up {ethereum_network.name} proxy factory addresses'))
+        #     self._setup_safe_proxy_factories(PROXY_FACTORIES[ethereum_network])
 
-        if not (ethereum_network in MASTER_COPIES and ethereum_network in PROXY_FACTORIES):
-            self.stdout.write(self.style.WARNING('Cannot detect a valid ethereum-network'))
+        # if not (ethereum_network in MASTER_COPIES and ethereum_network in PROXY_FACTORIES):
+        #     self.stdout.write(self.style.WARNING('Cannot detect a valid ethereum-network'))
+        self._setup_safe_proxy_factories([('0x8F085375A60FeaC4B13Edb4c04CfbCa06d9e1C0c', 1243837)])
 
     def _setup_safe_master_copies(self, safe_master_copies: Sequence[Tuple[str, int, str]]):
         for address, initial_block_number, version in safe_master_copies:
